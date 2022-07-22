@@ -1,6 +1,6 @@
 steps:
   - name: gcr.io/cloud-builders/gcloud
-    args: ['compute', 'ssh', 'instance-1', '--tunnel-through-iap', '--zone=us-central1',"--command='/bin/sh /home/kolade/project/pull.sh'"]
+    args: ['compute', 'ssh', 'instance-1', '--tunnel-through-iap', '--zone=us-central1-a',"--command='/bin/sh /home/kolade/project/pull.sh'"]
 
 # steps:
 # - name: 'gcr.io/cloud-builders/gcloud'

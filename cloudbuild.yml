@@ -1,3 +1,7 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    args: ['compute', 'ssh', 'instance-1', '--tunnel-through-iap', '--zone=us-central1',"--command='/bin/sh /home/kolade/project/pull.sh'"]
+
 # steps:
 # - name: 'gcr.io/cloud-builders/gcloud'
 #   id: Update staging server
@@ -7,9 +11,3 @@
 #   - |
 #     set -x && \
 #     gcloud compute ssh --tunnel-through-iap instance-1 --zone=us-central1-a --command='/bin/sh /home/kolade/project/pull.sh'
-
-
-steps:
-  - name: gcr.io/cloud-builders/gcloud
-  args: ['compute', 'ssh', 'instance-1', '--tunnel-through-iap', '--zone=us-central1',"--command='/bin/sh /home/kolade/project/pull.sh'"]
-

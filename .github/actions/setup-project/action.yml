@@ -1,0 +1,23 @@
+name: 'Setup App'
+description: 'Install Nodejs, Cache Npm, Install Dependencies'
+
+inputs:
+  INSTALL_DEPENDENCIES:
+    description: 'Install Dependencies'
+    required: false
+    default: 1
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Get Node Version 16
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+      shell: 'bash'
+      if: inputs.INSTALL_DEPENDENCIES == 1

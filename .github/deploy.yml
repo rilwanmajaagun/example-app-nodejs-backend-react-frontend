@@ -1,0 +1,44 @@
+name: Deploy Applications
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  GCLOUD_PROJECT:  ${{ secrets.GCLOUD_PROJECT }}
+  GCR_API_IMAGE_NAME: example-app
+  GCR_API_URL: gcr.io/rock-fountain-356110/
+  API_TAG: api:latest
+  REGION: us-central1
+  GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+jobs:
+  Deploy-Web:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    needs: Setup-App
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Project
+        uses: ./.github/actions/setup-project
+
+      - uses: ./.github/actions/auth-gcp
+        with:
+          CONFIG_ENV: staging
+          CREDENTIALS_JSON: ${{ env.GCP_SERVICE_ACCOUNT }}
+
+      - name: Configure Docker to use Google Cloud Platform
+        run: "gcloud auth configure-docker --quiet"
+
+      - name: Build Web
+        run: npm run build:web
+
+      - name: Deploy Web
+        run: |
+          docker tag ${{ env.API_TAG }} ${{ env.GCR_API_URL }}${{ env.GCR_API_IMAGE_NAME }}
+          docker push ${{ env.GCR_API_URL }}${{ env.GCR_API_IMAGE_NAME }}
+        

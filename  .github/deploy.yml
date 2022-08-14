@@ -2,8 +2,7 @@ name: Deploy Applications
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "master" ]
 
 env:
   GCLOUD_PROJECT:  ${{ secrets.GCLOUD_PROJECT }}

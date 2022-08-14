@@ -3,7 +3,7 @@ name: Deploy Applications
 on:
   push:
     branches: [ "master" ]
-
+    
 env:
   GCLOUD_PROJECT:  ${{ secrets.GCLOUD_PROJECT }}
   GCR_API_IMAGE_NAME: example-app

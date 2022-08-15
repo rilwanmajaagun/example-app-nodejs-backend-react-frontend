@@ -18,6 +18,6 @@ runs:
         cache: 'npm'
 
     - name: Install Dependencies
-      run: npm ci
+      run: npm install && npm ci
       shell: 'bash'
       if: inputs.INSTALL_DEPENDENCIES == 1

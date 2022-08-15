@@ -20,7 +20,3 @@ runs:
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0
-
-    - name: get config files for ${{ inputs.CONFIG_ENV }}
-      run: npm run config:${{ inputs.CONFIG_ENV }}
-      shell: "bash"

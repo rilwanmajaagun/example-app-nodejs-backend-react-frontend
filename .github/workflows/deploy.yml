@@ -33,7 +33,7 @@ jobs:
         run: "gcloud auth configure-docker --quiet"
 
       - name: Build Docker image
-        run: docker build -t ${{ env.API_TAG }} --build-arg GIT_COMMIT=$(git log -1 --format=%h) .
+        run: docker build -t ${{ env.API_TAG }} .
 
       - name: tag docker image, push to gcr and deploy to cloud run
         run: |

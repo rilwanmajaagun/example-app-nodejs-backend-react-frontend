@@ -35,8 +35,14 @@ jobs:
       - name: Build Docker image
         run: docker build -t ${{ env.API_TAG }} --build-arg GIT_COMMIT=$(git log -1 --format=%h) .
 
-      - name: Deploy Web
+      - name: tag docker image, push to gcr and deploy to cloud run
         run: |
           docker tag ${{ env.API_TAG }} ${{ env.GCR_API_URL }}${{ env.GCR_API_IMAGE_NAME }}
           docker push ${{ env.GCR_API_URL }}${{ env.GCR_API_IMAGE_NAME }}
+          gcloud run deploy ${{ env.GCR_API_IMAGE_NAME }} \
+            --quiet \
+            --image ${{ env.GCR_API_URL }}${{ env.GCR_API_IMAGE_NAME }} \
+            --project ${{ env.GCLOUD_PROJECT }} \
+            --region ${{ env.REGION }} \
+            --platform managed
         
